@@ -5,6 +5,7 @@ app = FastAPI()
 
 grocery_list: dict[int, ItemPayLoad] = {}
 
+# Route to add an item
 @app.post("/items/{item_name}/{quantity}")
 def add_item(item_name: str, quantity: int) -> dict[str, ItemPayLoad]:
     if quantity <= 0:
@@ -23,4 +24,11 @@ def add_item(item_name: str, quantity: int) -> dict[str, ItemPayLoad]:
             item_name=item_name,
             quantity=quantity
         )
+    return {"item": grocery_list[item_id]}
+
+# Route to list a specific item by ID
+@app.get("/items/{item_id}")
+def list_item(item_id:int) -> dict[str, ItemPayLoad]:
+    if item_id not in grocery_list:
+        raise HTTPException(status_code=404, detail="Item not found")
     return {"item": grocery_list[item_id]}

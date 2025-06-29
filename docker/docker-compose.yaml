@@ -4,7 +4,7 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
-    image: learn-python-app:0.0.5
+    image: learn-python-app:0.0.6
     container_name: learn-python-app-container
     volumes:
       - ..:/mnt
