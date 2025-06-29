@@ -32,3 +32,25 @@ def list_item(item_id:int) -> dict[str, ItemPayLoad]:
     if item_id not in grocery_list:
         raise HTTPException(status_code=404, detail="Item not found")
     return {"item": grocery_list[item_id]}
+
+@app.get("/items")
+def list_items() -> dict[str, dict[int, ItemPayLoad]]:
+    return {"items": grocery_list}
+
+@app.delete("/items/{item_id}")
+def delete_item(item_id: int):
+    if item_id not in grocery_list:
+        raise HTTPException(status_code=404, detail="Item not found")
+    del grocery_list[item_id]
+    return {"message": "Item deleted"}
+
+@app.delete("/items/{item_id}/{quantity}")
+def remove_quantity(item_id: int, quantity: int):
+    if item_id not in grocery_list:
+        raise HTTPException(status_code=404, detail="Item not found")
+    if grocery_list[item_id].quantity < quantity:
+        del grocery_list[item_id]
+        return {"message": "Item deleted"}
+    else:
+        grocery_list[item_id].quantity -= quantity
+        return {"result": f"{quantity} items removed."}

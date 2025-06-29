@@ -1,1 +1,1 @@
-curl -X GET http://localhost:3000/items/0
+curl -X GET http://localhost:3000/items/1
