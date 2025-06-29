@@ -9,7 +9,7 @@ services:
     volumes:
       - ..:/mnt
     ports:
-      - "8000:8000"
+      - "3000:3000"
     environment:
       - PYTHONUNBUFFERED=1
     command: /bin/sh -c "while sleep 1000; do :; done"
